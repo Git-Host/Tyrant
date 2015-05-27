@@ -1,0 +1,58 @@
+<% if session['access_token'] %>
+  <div class='wrapper'>
+    <% if notice %>
+    <div class='notice'>
+      <%=  notice.html_safe %>
+    </div>
+    <% end %>
+      <div class='sites'>
+	<% if @sites.length < 5 %>
+	  <div class='cf'>
+	    <div class='left'>
+	      <a href='<%= new_site_path %>' class='site-new btn-create'><i class="fa fa-plus-circle"></i> Create New Site (<%= 5 - @sites.length %> left)</a>
+	    </div>
+	  </div>
+	<% end %>
+    <% if @sites.length != 0 %>
+      <h2>Your Sites:</h2>
+      <ul >
+	<% @sites.each do |s| %>
+	  <li class='cf'>
+
+	  <div class='left'><%= link_to s.name, site_path( s ) %> </div> <div class='right'> <%= link_to 'Edit Site', edit_site_path( s ), :class => 'btn-edit' %> <%= link_to 'Delete Site', site_path( s ), :class=> 'btn-delete', method: :delete %> </div>
+	  </li>
+	<% end %>
+      </ul>
+    <% end %>
+    </div>
+  </div>
+
+  <% else %>
+    <div class='splash'>
+      <div class='wrapper'>
+    <h2>UpDog is a static website host, powered by DropBox</h2>
+    </div>
+  </div>
+
+  <div class='wrapper'>
+    <h3>How it works:</h3>
+    <ol>
+      <li><a href='/auth/dropbox'>Log In with Dropbox</a></li>
+      <li>Create a new site</li>
+      <li>Add your site to the newly created folder.</li>
+      <li>Share your site.</li>
+    </ol>
+    <h3>What our customers are saying:</h3>
+    <div class='table'>
+      <div class='g-1-3'>
+	<blockquote>It’s so fast!</blockquote>
+      </div>
+      <div class='g-1-3'>
+	<blockquote>How does it update my site instantly? Magic?!</blockquote>
+      </div>
+      <div class='g-1-3'>
+	<blockquote>What’s updog?</blockquote>
+      </div>
+      </div>
+    </div>
+  <% end %>
